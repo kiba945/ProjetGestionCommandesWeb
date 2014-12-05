@@ -16,8 +16,9 @@ import com.afpa59.patrice.utils.ConnectionFichiersArticles;
  * Servlet implementation class ServletArticle
  */
 public class ServletArticle extends HttpServlet {
+	
 	private static final long serialVersionUID = 1L;
-	ServiceArticle serviceArt = new ServiceArticle(); 
+	private static ServiceArticle serviceArt;
 
 	/**
 	 * @see HttpServlet#HttpServlet()

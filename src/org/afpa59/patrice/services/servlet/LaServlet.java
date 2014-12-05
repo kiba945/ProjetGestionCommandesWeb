@@ -85,23 +85,18 @@ public class LaServlet extends HttpServlet {
 //		System.out.println("Designation: " + ServiceArt.getDesignation());
 //		System.out.println("Prix: " + ServiceArt.getPrix());
 
-		if (serviceArt == null ){
-			page.println("<body>");
-			page.println("Veuillez saisir tous les champs.");	
-		}else{
-			page.println("<body>");
+		page.println("<body>");
 
-			page.println("Hauteur du panier: "
-					+ compteur
-					+ "<br><br>");			
+		page.println("Hauteur du panier: "
+				+ compteur
+				+ "<br><br>");			
 
-			page.println("<font size=+2>");
-			page.println("Affichage des articles: <br><br>"
-					+ serviceArt.toString().replace("\n", "<br>")
-					+ "<br>");
-			
-			page.println("</font>");
-		}
+		page.println("<font size=+2>");
+		page.println("Affichage des articles: <br><br>"
+				+ serviceArt.toString().replace("\n", "<br>")
+				+ "<br>");
+
+		page.println("</font>");
 		page.println("<br><br><a href='SaisieArticle.html'> Retour index</a>");
 		page.println("</body>");	
 	}
