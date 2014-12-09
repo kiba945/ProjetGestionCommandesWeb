@@ -43,8 +43,6 @@ public class ServletArticle extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-
-		System.out.println("Je suis là dans le doPOST de ServletArticle");
 		
 		Integer compteur = null;
 		compteur = new Integer(0);

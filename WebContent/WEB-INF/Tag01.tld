@@ -1,0 +1,6 @@
+
+<tag>
+	<name>hello</name>
+	<tagclass>tutoriel.taglib.HelloTag</tagclass>
+	<bodycontent>empty</bodycontent>
+</tag>

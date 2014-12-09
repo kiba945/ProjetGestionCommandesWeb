@@ -3,13 +3,13 @@ package org.afpa59.patrice.services.servlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.afpa59.patrice.donnees.Article;
 import com.afpa59.patrice.service.fichier.ServiceArticle;
 
 /**
@@ -60,9 +60,10 @@ public class LaServlet extends HttpServlet {
 		page.println("<head>");
 		page.println("<title> La Servlet </title>");
 		page.println("</head>");
-		page.println("</html>");		
-
-		page.println("<body> Je suis là dans le doPOST de LaServlet<br><br></body>");
+				
+		
+//		RequestDispatcher rdentete = request.getRequestDispatcher("ServletEntete");
+//		rdentete.include(request, response);
 
 		/* Création et récupération de la session*/
 
@@ -85,19 +86,30 @@ public class LaServlet extends HttpServlet {
 //		System.out.println("Designation: " + ServiceArt.getDesignation());
 //		System.out.println("Prix: " + ServiceArt.getPrix());
 
-		page.println("<body>");
-
-		page.println("Hauteur du panier: "
-				+ compteur
-				+ "<br><br>");			
+		page.println("<body>");	
 
 		page.println("<font size=+2>");
 		page.println("Affichage des articles: <br><br>"
 				+ serviceArt.toString().replace("\n", "<br>")
 				+ "<br>");
 
+		page.println("Nbre d'articles: " + serviceArt.getTabArticle().size());
+		
 		page.println("</font>");
-		page.println("<br><br><a href='SaisieArticle.html'> Retour index</a>");
-		page.println("</body>");	
+		
+		page.println("<br><br><a href='Formulaires/SaisieArticle.html'> Retour index</a>");
+		
+		page.println("<br><br><div align='right'><a> Hauteur du panier: "
+				+ compteur
+				+	"</a></div>");
+		
+		RequestDispatcher rdPied = request.getRequestDispatcher("/ServletPied");
+		rdPied.include(request, response);		
+		
+		page.println("</body>");
+		
+
+		
+		page.println("</html>");
 	}
 }
