@@ -1,8 +1,6 @@
 <%@page import="com.afpa59.patrice.utils.ConnectionFichiersArticles"%>
 <%@page import="com.afpa59.patrice.service.fichier.ServiceArticle"%>
 
-<%@ taglib uri="/WEB-INF/Tag01.tld" prefix="Tag01" %>
-
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 	
@@ -16,73 +14,30 @@
 
 <%-- 	<jsp:include page="/ServletEntete" > </jsp:include> --%>
 
-	
+			<br><br>
 
-	<%
-		String nom = request.getParameter("nom");
-
-		if (nom == null) {
-			out.println("C'est OKAY.....");
-		} else {
-			out.println("C'est OKAY....." + nom);
-		}
-	%>
-
-	<br><br>
-
-	<%
-		int a = 100;
-		out.println(" depuis les taps" + a);
-	%>
-
-	<br><br>
+			<% ServiceArticle serviceArt = new ServiceArticle(); %>
 			
-			le prix est de <%= a %> euros
+			<% ConnectionFichiersArticles fichArt; %>
+			<% String nomPhysiqueArticle = "C:/Users/afpa1653/Documents/GitHub/ProjetGestionCommandes/TableArticles"; %>
+			<% fichArt = new ConnectionFichiersArticles(nomPhysiqueArticle); %>
+			<% serviceArt = fichArt.getTab(); %>
+					
+			
+			Affichage des articles: 
 			
 			<br><br>
 			
-			<% for(int i = 1; i<11; i++){ %> 
+			<%=  serviceArt.toString().replace("\n", "<br>") %> 
+		
+			<br><br>
+
 			
-				Je boucle pour la <%= i%>
-			
-				<% if(i == 1){ %>
-			
-					ére fois
-				
-				<% }else{ %>
-			
-					ème fois
-				
-				<% } %>
-			
-				<br>
-			
-				<% } %>
+			Nbre d'articles <%= serviceArt.getTabArticle().size() %>
 			
 			<br><br>
 
 			Hauteur du panier <%= session.getAttribute("monCompteur") %>
-
-			<br><br>
-			
-			<Tag01:Tag01/>
-			
-			<br><br>
-			
-			<Tag01:Tag02/>
-			
-			<br/><br>
-			
-			<Tag01:Tag02 name="TAG 02"/>
-						
-			<br><br>
-			
-			
-			<Tag01:Tag03 name="TAG 03"/>
-						
-			<br><br>
-			
-<%-- 			<Tag01:Tag02:upperCase>Ce texte sera mis en majuscule, ainsi que le résultat de ce <%="scriptlet"%>.</tag11:upperCase> --%>
 			
 			<jsp:useBean id="Service" class="com.afpa59.patrice.service.fichier.ServiceArticle" scope="session"/>
 			
