@@ -12,6 +12,19 @@
 </h:head>
 <h:body>
 	<center>
+
+		<p:panel>
+			<h:form>
+
+				<p:themeSwitcher style="width:150px">
+					<f:selectItem itemLabel="Choose Theme" itemValue="" />
+					<f:selectItems value="#bean.themes" />
+				</p:themeSwitcher>
+
+			</h:form>
+		</p:panel>
+
+
 		<p:panel header="Login Form" style="width: 350;">
 			<h:form>
 
@@ -21,37 +34,10 @@
 					<h:outputLabel for="#{userManagedBean.password}" value="Password" />
 					<h:inputSecret value="#{userManagedBean.password}"></h:inputSecret>
 
-					<h:commandButton type="submit" value="Login" action="#{userManagedBean.login}"></h:commandButton>
+					<h:commandButton type="submit" value="Login"
+						action="#{userManagedBean.login}"></h:commandButton>
 				</h:panelGrid>
 
-				<h:panelGrid columns="1" cellpadding="2">
-<!-- 					<p:outputLabel for="basic" value="Basic:" /> -->
-<!-- 					<p:themeSwitcher id="basic" style="width:165px"> -->
-<!-- 						<f:selectItem itemLabel="Choose Theme" itemValue="" /> -->
-<!-- 						<f:selectItems -->
-<!-- 							value="[afterdark, afternoon, afterwork, aristo, black-tie, blitzer, bluesky, bootstrap, casablanca, cupertino, cruze, dark-hive, delta, dot-luv, eggplant, excite-bike, flick, glass-x, home, hot-sneaks, humanity, le-frog, metroui, midnight, mint-choc, overcast, pepper-grinder, redmond, rocket, sam, smoothness, south-street, start, sunny, swanky-purse, trontastic, ui-darkness, ui-lightness, vader]" -->
-<!-- 							var="theme" itemLabel="" itemValue="" /> -->
-<!-- 					</p:themeSwitcher> -->
-
-					<p:outputLabel for="advanced" value="Advanced:" />
-					<p:themeSwitcher id="advanced" style="width:165px" effect="fade"
-						var="t">
-						<f:selectItem itemLabel="Choose Theme" itemValue="" />
-						<f:selectItems
-							value="[afterdark, afternoon, afterwork, aristo, black-tie, blitzer, bluesky, bootstrap, casablanca, cupertino, cruze, dark-hive, delta, dot-luv, eggplant, excite-bike, flick, glass-x, home, hot-sneaks, humanity, le-frog, metroui, midnight, mint-choc, overcast, pepper-grinder, redmond, rocket, sam, smoothness, south-street, start, sunny, swanky-purse, trontastic, ui-darkness, ui-lightness, vader]"
-							var="theme" itemLabel="" itemValue="" />
-
-						<p:column>
-							<h:outputText styleClass="ui-theme ui-theme-"
-								style="display-block" />
-						</p:column>
-
-						<p:column>
-
-						</p:column>
-					</p:themeSwitcher>
-				</h:panelGrid>
-				
 			</h:form>
 		</p:panel>
 		<div>

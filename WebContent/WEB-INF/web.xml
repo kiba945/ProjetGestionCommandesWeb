@@ -5,9 +5,10 @@
 	version="3.1">
 
 	<display-name>Jsf2Primefacesv0.02</display-name>
+	
 	<context-param>
 		<param-name>primefaces.THEME</param-name>
-		<param-value>sunny</param-value>
+		<param-value>bluesky</param-value>
 	</context-param>
 	
 <!--   <context-param> -->

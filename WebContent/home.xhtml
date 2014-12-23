@@ -14,6 +14,24 @@
 
 	<center>
 		<h:form id="formDataTable">
+
+			<p:panel>
+
+				<p:growl id="messages" />
+
+				<p:splitButton value="Save" actionListener="#{buttonView.save}"
+					update="messages" icon="ui-icon-disk">
+					<p:menuitem value="Update" actionListener="#{buttonView.update}"
+						update="messages" icon="ui-icon-arrowrefresh-1-w" />
+					<p:menuitem value="Delete" actionListener="#{buttonView.delete}"
+						ajax="false" icon="ui-icon-close" />
+					<p:separator />
+					<p:menuitem value="Register" url="registration.xhtml"
+						icon="ui-icon-extlink" />
+				</p:splitButton>
+
+			</p:panel>
+
 			<p:panel header="Users Search Form" style="width: 700;">
 				<h:form>
 					<h:panelGrid columns="3" cellpadding="2">
@@ -23,18 +41,23 @@
 							label="UserName"></h:inputText>
 						<h:commandButton type="submit" value="Search"
 							action="#{userManagedBean.searchUsers}"></h:commandButton>
+					</h:panelGrid>
+
+					<h:panelGrid columns="3" cellpadding="2">
 
 						<p:growl id="growl" life="2000" />
+
 						<p:commandLink id="ajax" update="growl"
 							actionListener="#{buttonView.buttonAction}">
 							<h:outputText value="Ajax Submit" />
 						</p:commandLink>
 
-						<p:button value="Bookmark" icon="ui-icon-pencil">
-							<f:param name="productId" value="10" />
+						<p:button value="Create" icon="ui-icon-pencil"
+							href="registration.xhtml">
 						</p:button>
 
 					</h:panelGrid>
+
 				</h:form>
 			</p:panel>
 
@@ -68,6 +91,14 @@
 				<p:column parser="date" sortBy="#{user.dob}" filterBy="#{user.dob}">
 					<f:facet name="header">
 						<h:outputText value="DOB" />
+						
+						
+				<p:calendar value="#{registrationBean.registrationForm.dob}"
+					id="dob" converterMessage="Invalid Date" pattern="MM/dd/yyyy">
+					<p:ajax event="dateSelect" listener="#{calendarView.onDateSelect}" />
+				</p:calendar>
+				
+										
 					</f:facet>
 					<h:outputText value="#{user.dob}">
 						<f:convertDateTime pattern="MM/dd/yyyy" />
@@ -88,7 +119,7 @@
 					<h:outputLabel for="#{userManagedBean.selectedUser.username}"
 						value="Username" />
 					<h:inputText value="#{userManagedBean.selectedUser.username}"
-						readonly="true"></h:inputText>
+						readonly="false"></h:inputText>
 
 					<h:outputLabel for="#{userManagedBean.selectedUser.emailId}"
 						value="EmailId" />

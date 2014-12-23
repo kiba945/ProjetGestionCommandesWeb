@@ -101,6 +101,7 @@ public class UserManagedBean implements Serializable
         userService.update(this.selectedUser);
         return "home";
     }
+    
     public void rowSelect(SelectEvent event){
     	selectedUser =  (User)event.getObject();
     	System.out.println("selectedUser = "+selectedUser.getUsername());	
