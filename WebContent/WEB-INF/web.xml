@@ -6,15 +6,15 @@
 
 	<display-name>Jsf2Primefacesv0.02</display-name>
 	
-	<context-param>
-		<param-name>primefaces.THEME</param-name>
-		<param-value>bluesky</param-value>
-	</context-param>
+<!-- 	<context-param> -->
+<!-- 		<param-name>primefaces.THEME</param-name> -->
+<!-- 		<param-value>bluesky</param-value> -->
+<!-- 	</context-param> -->
 	
-<!--   <context-param> -->
-<!--         <param-name>primefaces.THEME</param-name> -->
-<!--         <param-value>#{loggedInUser.preferences.theme}</param-value> -->
-<!--   </context-param>	 -->
+  <context-param>
+        <param-name>primefaces.THEME</param-name>
+        <param-value>#{guestPreferences.theme}</param-value>
+  </context-param>	
 	
 	<context-param>
 		<description>State saving method: 'client' or 'server' (=default). See JSF Specification 2.5.2</description>

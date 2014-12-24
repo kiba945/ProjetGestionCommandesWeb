@@ -9,6 +9,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.inject.Inject;
 
+import org.primefaces.showcase.domain.Theme;
+
 
 @ManagedBean
 @SessionScoped
@@ -17,7 +19,7 @@ public class ThemeSwitcherBean {
    private Map<String, String> themes;
    private List<Theme> advancedThemes;
    private String theme;
-   private GuestPreferences gp;
+   private GuestPreferences gp = new GuestPreferences();
 
    @Inject
    public void setGp(GuestPreferences gp) {

@@ -2,90 +2,168 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:p="http://primefaces.org/ui">
-
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:p="http://primefaces.org/ui"
+   xmlns:h="http://java.sun.com/jsf/html">
 <h:head>
-
+   <title>#{msgs.title}</title>
+   <link rel="stylesheet" type="text/css" href="css/basic.css" />
+   <link rel="icon" href="images/klug_neu.gif" />
 </h:head>
-<h:body>
-	<center>
-
-		<h:form>
-
-			<h:panelGrid columns="2" cellpadding="10">
-				<p:outputLabel for="basic" value="Basic:" />
-				<p:themeSwitcher id="basic" style="width:165px">
-					<f:selectItem itemLabel="Choose Theme" itemValue="" />
-					<f:selectItems
-						value="[afterdark, afternoon, afterwork, aristo, black-tie, blitzer, bluesky, bootstrap, casablanca, cupertino, cruze, dark-hive, delta, dot-luv, eggplant, excite-bike, flick, glass-x, home, hot-sneaks, humanity, le-frog, metroui, midnight, mint-choc, overcast, pepper-grinder, redmond, rocket, sam, smoothness, south-street, start, sunny, swanky-purse, trontastic, ui-darkness, ui-lightness, vader]"
-						var="theme" itemLabel="" itemValue="" />
-				</p:themeSwitcher>
-
-				<p:outputLabel for="advanced" value="Advanced:" />
-				<p:themeSwitcher id="advanced" style="width:165px" effect="fade"
-					var="t">
-					<f:selectItem itemLabel="Choose Theme" itemValue="" />
-					<f:selectItems
-						value="[afterdark, afternoon, afterwork, aristo, black-tie, blitzer, bluesky, bootstrap, casablanca, cupertino, cruze, dark-hive, delta, dot-luv, eggplant, excite-bike, flick, glass-x, home, hot-sneaks, humanity, le-frog, metroui, midnight, mint-choc, overcast, pepper-grinder, redmond, rocket, sam, smoothness, south-street, start, sunny, swanky-purse, trontastic, ui-darkness, ui-lightness, vader]"
-						var="theme" itemLabel="" itemValue="" />
-
-					<p:column>
-						<h:outputText styleClass="ui-theme ui-theme-"
-							style="display-block" />
-					</p:column>
-
-					<p:column>
-
-					</p:column>
-				</p:themeSwitcher>
-			</h:panelGrid>
-
-			<p:separator />
-
-			<p:dialog header="Dialog" widgetVar="dlg" minHeight="40" modal="true">
-				<h:outputText value="Resistance to PrimeFaces is futile!" />
-			</p:dialog>
-
-			<p:commandButton value="Dialog" onclick="PF('dlg').show()"
-				type="button" style="display:block;" />
-
-			<p:panel header="Panel" style="margin:20px 0px">
-        Panel Content
-    </p:panel>
-
-			<p:spinner />
-
-			<p:toolbar style="margin:20px 0px">
-				<f:facet name="left">
-					<p:commandButton type="button" value="New" icon="ui-icon-document" />
-					<p:commandButton type="button" value="Open"
-						icon="ui-icon-folder-open" />
-					<p:commandButton type="button" title="Save" icon="ui-icon-disk" />
-					<p:commandButton type="button" title="Delete" icon="ui-icon-trash" />
-					<p:commandButton type="button" title="Print" icon="ui-icon-print" />
-				</f:facet>
-
-				<f:facet name="right">
-					<p:menuButton value="Navigate">
-						<p:menuitem value="Home" url="http://www.primefaces.org" />
-						<p:menuitem value="ShowCase"
-							url="http://www.primefaces.org/showcase" />
-						<p:menuitem value="TouchFaces"
-							url="http://www.primefaces.org/showcase/touch" />
-					</p:menuButton>
-				</f:facet>
-			</p:toolbar>
-
-			<p:accordionPanel>
-				<p:tab title="Tab1">Tab1 Content</p:tab>
-				<p:tab title="Tab2">Tab2 Content</p:tab>
-				<p:tab title="Tab3">Tab3 Content</p:tab>
-			</p:accordionPanel>
-
-		</h:form>
-	</center>
+<h:body>                                                                                        
+   <p id="function">#{user.checkIfUserIsLoggedIn()}</p>
+   <p:toolbar style="margin-bottom: 20px;">
+      <p:toolbarGroup align="left">
+         <div align="left" style="float: left;">
+            <img src="images/klug_neu.gif" />
+         </div>
+      </p:toolbarGroup>
+      <p:toolbarGroup align="right">
+         <div align="left" style="float: left;">
+            <img src="images/klug_neu.gif" />
+         </div>
+      </p:toolbarGroup>
+      <p:toolbarGroup align="center">
+         <div align="center">
+            <h1 id="head">#{msgs.title}</h1>
+         </div>
+      </p:toolbarGroup>
+   </p:toolbar>
+   <p:toolbar id="toolbar">
+      <p:toolbarGroup align="left" style="margin-top: 10px;">
+         <h:outputLabel id="searchLabel" value="#{msgs.search}"
+            for="searchField" />
+         <p:autoComplete id="searchField">
+         </p:autoComplete>
+      </p:toolbarGroup>
+      <p:toolbarGroup id="toolbarGroup" align="center">
+         <p:dock position="top" maxWidth="65">
+            <p:menuitem value="#{msgs.accesses}"
+               icon="/images/security-icon.png" url="passwordmanagement.xhtml" />
+            <p:menuitem value="#{msgs.admin}" icon="/images/settings-icon.png"
+               url="#" style="margin-left: 15px;" />
+            <p:menuitem value="#{msgs.home}" icon="/images/chat-icon.png"
+               url="#" style="margin-left: 20px;" />
+         </p:dock>
+      </p:toolbarGroup>
+   </p:toolbar>
+   <h:form id="formForLogout">
+      <h:commandButton id="logoutButton" title="#{msgs.logout}"
+         action="#{user.logout}" image="images/logout.jpg" />
+   </h:form>
+   <a id="user" href="test.xhtml" title="#{msgs.personalSettings}">#{user.getUser()}</a>
+   <label id="loggedInAs">#{msgs.loggedInAs}</label>
+   <h:form>
+      <h:panelGrid columns="2" cellpadding="10">
+         <h:outputText value="#{msgs.skin}" />
+         <p:themeSwitcher value="#{themeSwitcherBean.theme}" style="width: 165px;" effect="fade" var="t">
+            <f:selectItem itemLabel="#{msgs.chooseSkin}" itemValue="" />
+            <f:selectItems value="#{themeSwitcherBean.advancedThemes}" var="theme" 
+               itemLabel="#{theme.name}" itemValue="#{theme}" />
+            <p:ajax listener="#{themeSwitcherBean.saveTheme}" />
+            <p:column>
+               <h:graphicImage value="/images/themes/#{t.image}" />
+            </p:column>
+            <p:column>
+               #{t.name}
+            </p:column>
+         </p:themeSwitcher>      
+      </h:panelGrid>
+   </h:form>
+      <p:layout style="min-width:100%; min-height: 600px; margin-top: 24px;"
+      id="layout">
+      <p:layoutUnit position="west" size="30%" id="layoutUnitTree">
+         <h:form id="form1">
+            <p:panel id="panel1" header="#{msgs.tableHead}"
+               style="font-size: 105%;">
+               <p:growl id="growl1" showSummary="true" showDetail="true"
+                  autoUpdate="true" />
+               <p:tree id="tree1" value="#{treeBean.model}" var="node"
+                  selectionMode="single" selection="#{treeBean.selectedNode}">
+                  <p:ajax event="select" listener="#{treeBean.onNodeSelect}" />
+                  <p:ajax event="expand" listener="#{treeBean.onNodeExpand}" />
+                  <p:ajax event="collapse" listener="#{treeBean.onNodeCollapse}" />
+                  <p:ajax event="unselect" listener="#{treeBean.onNodeUnselect}" />
+                  <p:treeNode type="node" expandedIcon="folder-open"
+                     collapsedIcon="folder-collapsed">
+                     <h:outputText value="#{node}" />
+                  </p:treeNode>
+                  <p:treeNode type="leaf" icon="document-node">
+                     <h:outputText value="#{node}" />                  
+                  </p:treeNode>
+               </p:tree>
+            </p:panel>
+         </h:form>
+      </p:layoutUnit>
+      <p:layoutUnit position="center" size="0" style="border: 0;"></p:layoutUnit>
+      <p:layoutUnit position="east" size="70%" id="layoutUnitTable">
+         <h:form id="tableForm">
+            <p:panel id="tablePanel">
+               <p:dataTable id="dataTable" var="car" value="#{tableBean.carsSmall}"
+                  widgetVar="carsTable" emptyMessage="#{msgs.nothingFound}"
+                  editable="true">
+                  <p:column id="description" filterBy="#{car.model}"
+                     headerText="#{msgs.description}" filterMatchMode="contains">
+                     <p:cellEditor>
+                        <f:facet name="output">
+                           <h:outputText value="#{car.model}" />
+                        </f:facet>
+                        <f:facet name="input">
+                           <p:inputText value="#{car.model}" style="width: 100%;" />
+                        </f:facet>
+                     </p:cellEditor>
+                  </p:column>
+   
+                  <p:column id="userName" headerText="#{msgs.userName}">
+                     <p:cellEditor>
+                        <f:facet name="output">
+                           <h:outputText value="#{car.year}" />
+                        </f:facet>
+                        <f:facet name="input">
+                           <p:inputText value="#{car.year}" style="width: 100%;" />
+                        </f:facet>
+                     </p:cellEditor>
+                  </p:column>
+   
+                  <p:column id="password" headerText="#{msgs.pass}">
+                     <p:cellEditor>
+                        <f:facet name="output">
+                           <h:outputText value="#{car.manufacturer}" />
+                        </f:facet>
+                        <f:facet name="input">
+                           <p:inputText value="#{car.manufacturer}" style="width: 100%;" />
+                        </f:facet>
+                     </p:cellEditor>
+                  </p:column>
+   
+                  <p:column id="url" headerText="#{msgs.url}">
+                     <p:cellEditor>
+                        <f:facet name="output">
+                           <h:outputText value="#{car.color}" />
+                        </f:facet>
+                        <f:facet name="input">
+                           <p:inputText value="#{car.color}" style="width: 100%;" />
+                        </f:facet>
+                     </p:cellEditor>
+                  </p:column>
+   
+                  <p:column id="comment" headerText="#{msgs.comment}">
+                     <p:cellEditor>
+                        <f:facet name="output">
+                           <h:outputText value="" />
+                        </f:facet>
+                        <f:facet name="input">
+                           <p:inputText value="#{car.color}" style="width: 100%;" />
+                        </f:facet>
+                     </p:cellEditor>
+                  </p:column>
+                  <p:column headerText="#{msgs.edit}">
+                     <p:rowEditor />
+                  </p:column>
+               </p:dataTable>
+            </p:panel>
+         </h:form>
+      </p:layoutUnit>
+   </p:layout>   
 </h:body>
 </html>
