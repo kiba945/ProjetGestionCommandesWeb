@@ -2,9 +2,10 @@ package com.primefaces.sample3;
 
 import com.afpa59.patrice.donnees.Client;
 import com.afpa59.patrice.service.fichier.ServiceClient;
-import com.afpa59.patrice.utils.ES;
+import com.afpa59.patrice.utils.ConnectionFichiersClients;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.faces.application.FacesMessage;
@@ -18,47 +19,49 @@ import org.primefaces.event.UnselectEvent;
 @ManagedBean
 @SessionScoped
 public class ClientsManagedBean implements Serializable{
-	
+
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	ServiceClient clientService = new ServiceClient();
-    
-    private String login;
-	private String motPasse;
-    private String rechercheClient;
-    private Collection<Client> rechercheClientsResultats;
-    private Client selectionClient;	
-    
+	static ServiceClient clientService;
+	static ConnectionFichiersClients fichClt;
+	static String nomPhysiqueClient = "TableClients";	
 
-	public String getLogin() {
-		return login;
+	private String utilisateur;
+	private String motPasse;
+	private String rechercheClient;
+	private Collection<Client> rechercheClientsResultats;
+	private Client selectionClient;	
+
+
+	public String getUtilisateur() {
+		return utilisateur;
 	}
-	public void setLogin(String login) {
-		this.login = login;
+	public void setUtilisateur(String login) {
+		this.utilisateur = login;
 	}
-	
+
 	public String getMotPasse() {
 		return motPasse;
 	}
 	public void setMotPasse(String motPasse) {
 		this.motPasse = motPasse;
 	}
-	
+
 	public Client getSelectionClient() {
 		if(selectionClient == null){
 			selectionClient = new Client();
 		}
 		return selectionClient;
 	}
-	
+
 	public void setSelectionClient(Client selectionClient) {
 		this.selectionClient = selectionClient;
 	}	
-	
-	
+
+
 	public Collection<Client> getRechercheClientsResultats() {
 		return rechercheClientsResultats;
 	}
@@ -73,45 +76,79 @@ public class ClientsManagedBean implements Serializable{
 	public void setRechercheClient(String rechercheClient) {
 		this.rechercheClient = rechercheClient;
 	}
+
+	public String login(){
+		if("test".equalsIgnoreCase(getUtilisateur()) && "test".equals(getMotPasse()))
+		{
+			fichClt = new ConnectionFichiersClients("TableClients");
+			clientService = fichClt.getTab();
+
+			String mes;
+
+			mes = "\n*** CHARGEMENT du FICHIER des CLIENTS ***\n";
+			if(clientService == null){
+				clientService = new ServiceClient();
+				mes = mes + "*** TABLE des CLIENTS VIDE ***" +
+						"CREATION par DEFAUT de la TABLE des CLIENTS ***\n";
+				clientService.creer(1,"SIMPSON","Homer","SPRINGFIELD");
+				clientService.creer(2,"SIMPSON","Marge","WINTERFIELD");
+				clientService.creer(3,"SIMPSON","Bart","SUMMERFIELD");
+				
+			}
+
+//			ES.affiche(mes);	
+//			ES.affiche(clientService.toString());
+
+			return "home";
+		}
+		else
+		{
+			FacesContext context = FacesContext.getCurrentInstance();
+			context.addMessage("utilisateur", new FacesMessage("Login et mot de passe invalide"));
+			return "utilisateur";
+		}
+	}
+
+	public String rechercheClients()
+	{
+		String login = (this.rechercheClient == null)? "":this.rechercheClient.trim();
+		
+		this.rechercheClientsResultats = searchUsers(login);
+		System.out.println("Notre liste contient: "+rechercheClientsResultats.size());
+		return "home";
+	}
 	
-    public String login(){
-        if("test".equalsIgnoreCase(getLogin()) && "test".equals(getMotPasse()))
+    public Collection<Client> searchUsers(String utilisateur)
+    {
+        String critere = (utilisateur == null)? "":utilisateur.toLowerCase().trim();
+        Collection<Client> users = clientService.getTabClient();
+        Collection<Client> searchResults = new ArrayList<Client>();
+        for (Client clt : users)
         {
-            return "home";
+            if(clt.getPrenom() != null && clt.getPrenom().toLowerCase().trim().startsWith(critere))
+            {
+                searchResults.add(clt);
+            }
         }
-        else
-        {
-            FacesContext context = FacesContext.getCurrentInstance();
-            context.addMessage("login", new FacesMessage("Login et mot de passe invalide"));
-            return "login";
-        }
-    }
-    
-    public String rechercheClients()
-    {
-        String login = (this.rechercheClient == null)? "":this.rechercheClient.trim();        
-//        this.rechercheClientsResultats = clientService.retourner(login);
-        ES.affiche(login);
-        System.out.println("Notre liste contient: "+rechercheClientsResultats.size());
-        return "home";
-    }
-    
-    public String miseAjourClient()
-    {
-        clientService.modifier(this.selectionClient.getCode());
-        return "home";
-    }
-    
-    public void ligneSelectionne(SelectEvent event){
-    	selectionClient =  (Client)event.getObject();
-    	System.out.println("selectionClient = "+selectionClient.getNom());	
-    }
-    public void surClientSelectionne(SelectEvent event){ 
-    	this.selectionClient =  (Client)event.getObject();
-    	System.out.println("selectionClient = "+selectionClient.getNom());
-    }
-    public void surClientDeSelectionne(UnselectEvent event)
-    {
-    	selectionClient =  null;
-    }    
+        return searchResults;
+    }	
+
+	public String miseAjourClient()
+	{
+		clientService.modifier(this.selectionClient.getCode());
+		return "home";
+	}
+
+	public void ligneSelect(SelectEvent event){
+		selectionClient =  (Client)event.getObject();
+		System.out.println("selectionClient = "+selectionClient.getNom());	
+	}
+	public void surClientSelect(SelectEvent event){ 
+		this.selectionClient =  (Client)event.getObject();
+		System.out.println("selectionClient = "+selectionClient.getNom());
+	}
+	public void surClientDeSelect(UnselectEvent event)
+	{
+		selectionClient =  null;
+	}    
 }
