@@ -96,11 +96,24 @@ public class UserManagedBean implements Serializable
         return "home";
     }
     
+    public String createUser()
+    {
+        userService.create(this.selectedUser);
+        return "home";
+    }   
+    
     public String updateUser()
     {
         userService.update(this.selectedUser);
         return "home";
     }
+    
+    public String deleteUser()
+    {
+        userService.delete(this.selectedUser);
+        return "home";
+    }
+    
     public void rowSelect(SelectEvent event){
     	selectedUser =  (User)event.getObject();
     	System.out.println("selectedUser = "+selectedUser.getUsername());	

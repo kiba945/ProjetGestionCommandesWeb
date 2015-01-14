@@ -11,7 +11,7 @@
 
 </h:head>
 <h:body>
-	<h2>Registration Form</h2>
+	<h2>Formulaire d'enregistrement</h2>
 	<h:form>
 
 
@@ -21,7 +21,7 @@
 		<p:fieldset legend="Registration Form" widgetVar="regWidget"
 			style="width: 600px;">
 			<h:panelGrid columns="3" width="550" border="0">
-				<h:outputLabel value="UserName" />
+				<h:outputLabel value="Pseudo" />
 				<p:inputText value="#{registrationBean.registrationForm.userName}"
 					id="userName" required="true"
 					requiredMessage="UserName is required"
@@ -31,7 +31,7 @@
 				<p:message for="userName" />
 
 
-				<h:outputLabel value="Password" />
+				<h:outputLabel value="Mot de passe" />
 				<p:password value="#{registrationBean.registrationForm.password}"
 					id="password" required="true" feedback="true"
 					requiredMessage="Password is required"
@@ -40,7 +40,7 @@
 				</p:password>
 				<p:message for="password" />
 
-				<h:outputLabel value="FirstName" />
+				<h:outputLabel value="Nom" />
 				<p:inputText value="#{registrationBean.registrationForm.firstName}"
 					id="firstName" required="true"
 					requiredMessage="FirstName is required"
@@ -50,10 +50,15 @@
 				<p:message for="firstName" />
 
 
-				<h:outputLabel value="LastName" />
+				<h:outputLabel value="Prénom" />
 				<p:inputText value="#{registrationBean.registrationForm.lastName}"
 					id="lastName"></p:inputText>
 				<p:message for="lastName" />
+
+				<h:outputLabel value="Adresse" />
+				<p:inputText value="#{registrationBean.registrationForm.lastName}"
+					id="Adresse"></p:inputText>
+				<p:message for="Adresse" />
 
 				<h:outputLabel value="Email" />
 				<p:inputText value="#{registrationBean.registrationForm.email}"

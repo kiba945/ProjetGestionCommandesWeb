@@ -15,41 +15,6 @@
 	<center>
 		<h:form id="formDataTable">
 
-<!-- 			<p:toolbar id="tb"> -->
-<!-- 				<f:facet name="left"> -->
-<!-- 					<p:commandButton type="button" value="New" icon="ui-icon-document" /> -->
-<!-- 					<p:commandButton type="button" value="Open" -->
-<!-- 						icon="ui-icon-folder-open" /> -->
-<!-- 				</f:facet> -->
-<!-- 				<f:facet name="right"> -->
-<!-- 					<p:commandButton type="button" title="Save" icon="ui-icon-disk" /> -->
-<!-- 					<p:commandButton type="button" title="Delete" icon="ui-icon-trash" /> -->
-<!-- 					<p:commandButton type="button" title="Print" icon="ui-icon-print" /> -->
-<!-- 				</f:facet> -->
-<!-- 			</p:toolbar> -->
-
-<!-- 			<div style="height: 800px"></div> -->
-
-<!-- 			<p:sticky target="tb" />		 -->
-			
-
-			<p:panel>
-
-				<p:growl id="messages" />
-
-				<p:splitButton value="Save" actionListener="#{buttonView.save}"
-					update="messages" icon="ui-icon-disk">
-					<p:menuitem value="Update" actionListener="#{buttonView.update}"
-						update="messages" icon="ui-icon-arrowrefresh-1-w" />
-					<p:menuitem value="Delete" actionListener="#{buttonView.delete}"
-						ajax="false" icon="ui-icon-close" />
-					<p:separator />
-					<p:menuitem value="Register" url="registration.xhtml"
-						icon="ui-icon-extlink" />
-				</p:splitButton>
-
-			</p:panel>
-
 			<p:panel header="Formulaire de recherche" style="width: 700;">
 				<h:form>
 					<h:panelGrid columns="3" cellpadding="2">
@@ -61,32 +26,18 @@
 							action="#{clientsManagedBean.rechercheClients}"></h:commandButton>
 					</h:panelGrid>
 
-					<h:panelGrid columns="3" cellpadding="2">
-
-						<p:growl id="growl" life="2000" />
-
-						<p:commandLink id="ajax" update="growl"
-							actionListener="#{buttonView.buttonAction}">
-							<h:outputText value="Ajax Submit" />
-						</p:commandLink>
-
-						<p:button value="Create" icon="ui-icon-pencil"
-							href="registration.xhtml">
-						</p:button>
-
-					</h:panelGrid>
-
 				</h:form>
 			</p:panel>
 
-<!-- **********************DEBUG********************************* -->
-"#{clientsManagedBean.rechercheClientsResultats}"
+			<!-- **********************DEBUG********************************* -->
+<!-- "#{clientsManagedBean.rechercheClientsResultats}" -->
 <!-- **********************DEBUG********************************* -->
 
-			<p:dataTable var="user" value="#{clientsManagedBean.rechercheClientsResultats}"
-				selection="#{clientsManagedBean.selectionClient}" selectionMode="single"
-				style="width: 700" rowKey="#{user.code}" first="#{user.code}"
-				paginator="true" rows="5" editable="true">
+			<p:dataTable var="user"
+				value="#{clientsManagedBean.rechercheClientsResultats}"
+				selection="#{clientsManagedBean.selectionClient}"
+				selectionMode="single" style="width: 700" rowKey="#{user.code}"
+				first="#{user.code}" paginator="true" rows="5" editable="true">
 
 				<p:ajax event="rowSelect" update=":formDataTable:userUpdateForm"
 					listener="#{clientsManagedBean.surClientSelect}" />
@@ -103,40 +54,20 @@
 					</f:facet>
 					<h:outputText value="#{user.nom}" />
 				</p:column>
-				
+
 				<p:column sortBy="#{user.prenom}" filterBy="#{user.prenom}">
 					<f:facet name="header">
 						<h:outputText value="Prénom" />
 					</f:facet>
 					<h:outputText value="#{user.prenom}" />
 				</p:column>
-				
+
 				<p:column sortBy="#{user.adresse}" filterBy="#{user.adresse}">
 					<f:facet name="header">
 						<h:outputText value="Adresse" />
 					</f:facet>
 					<h:outputText value="#{user.adresse}" />
-				</p:column>				
-				
-<!-- 				<p:column parser="date" sortBy="#{user.dob}" filterBy="#{user.dob}"> -->
-					
-<!-- 					<f:facet name="header"> -->
-<!-- 						<h:outputText value="DOB" /> -->
-
-
-<!-- 						<p:calendar value="#{registrationBean.registrationForm.dob}" -->
-<!-- 							id="dob" converterMessage="Invalid Date" pattern="MM/dd/yyyy"> -->
-<!-- 							<p:ajax event="dateSelect" -->
-<!-- 								listener="#{calendarView.onDateSelect}" /> -->
-<!-- 						</p:calendar> -->
-
-<!-- 					</f:facet> -->
-					
-<!-- 					<h:outputText value="#{user.dob}"> -->
-<!-- 						<f:convertDateTime pattern="MM/dd/yyyy" /> -->
-<!-- 					</h:outputText> -->
-					
-<!-- 				</p:column> -->
+				</p:column>
 
 			</p:dataTable>
 
@@ -144,35 +75,55 @@
 				style="width: 700;" widgetVar="oneUser">
 				<h:panelGrid columns="2" cellpadding="2" id="userUpdateForm"
 					border="0">
-					<h:outputLabel for="#{userManagedBean.selectedUser.userId}"
-						value="UserId" />
-					<h:inputText value="#{userManagedBean.selectedUser.userId}"
+					<h:outputLabel for="#{clientsManagedBean.selectionClient.code}"
+						value="Code" />
+					<h:inputText value="#{clientsManagedBean.selectionClient.code}"
 						style="width: 100;" readonly="true"></h:inputText>
 
-					<h:outputLabel for="#{userManagedBean.selectedUser.username}"
-						value="Username" />
-					<h:inputText value="#{userManagedBean.selectedUser.username}"
+					<h:outputLabel for="#{clientsManagedBean.selectionClient.nom}"
+						value="Nom" />
+					<h:inputText value="#{clientsManagedBean.selectionClient.nom}"
 						readonly="false"></h:inputText>
 
-					<h:outputLabel for="#{userManagedBean.selectedUser.emailId}"
-						value="EmailId" />
-					<h:inputText value="#{userManagedBean.selectedUser.emailId}"
-						readonly="true"></h:inputText>
+					<h:outputLabel for="#{clientsManagedBean.selectionClient.prenom}"
+						value="Prénom" />
+					<h:inputText value="#{clientsManagedBean.selectionClient.prenom}"
+						readonly="false"></h:inputText>
 
-					<h:outputLabel for="#{userManagedBean.selectedUser.gender}"
-						value="Gender" />
-					<h:inputText value="#{userManagedBean.selectedUser.gender}"
-						readonly="true"></h:inputText>
-
-					<h:outputLabel for="#{userManagedBean.selectedUser.dob}"
-						value="DOB" />
-					<h:inputText value="#{userManagedBean.selectedUser.dob}"
-						readonly="true">
-						<f:convertDateTime pattern="MM/dd/yyyy" />
-					</h:inputText>
+					<h:outputLabel for="#{clientsManagedBean.selectionClient.adresse}"
+						value="Adresse" />
+					<h:inputText value="#{clientsManagedBean.selectionClient.adresse}"
+						readonly="false"></h:inputText>
 
 				</h:panelGrid>
+
+				<h:panelGrid columns="3" cellpadding="2">
+
+					<p:growl id="messages" />
+
+					<p:splitButton value="Save" actionListener="#{buttonView.save}"
+						update="messages" icon="ui-icon-disk">
+						<p:menuitem value="Update" actionListener="#{buttonView.update}"
+							update="messages" icon="ui-icon-arrowrefresh-1-w" />
+						<p:menuitem value="Delete" actionListener="#{buttonView.delete}"
+							ajax="false" icon="ui-icon-close" />
+						<p:separator />
+						<p:menuitem value="Register" url="registration.xhtml"
+							icon="ui-icon-extlink" />
+					</p:splitButton>
+
+				</h:panelGrid>
+
 			</p:panel>
+
+			<p:panel>
+
+				<p:button value="Create" icon="ui-icon-pencil"
+					href="registration.xhtml">
+				</p:button>
+
+			</p:panel>
+
 		</h:form>
 	</center>
 </h:body>

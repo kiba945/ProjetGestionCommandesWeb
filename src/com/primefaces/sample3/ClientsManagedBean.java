@@ -80,16 +80,27 @@ public class ClientsManagedBean implements Serializable{
 	public String login(){
 		if("test".equalsIgnoreCase(getUtilisateur()) && "test".equals(getMotPasse()))
 		{
-			fichClt = new ConnectionFichiersClients("TableClients");
-			clientService = fichClt.getTab();
+//			fichClt = new ConnectionFichiersClients("TableClients");
+//			clientService = fichClt.getTab();
 
-			String mes;
-
-			mes = "\n*** CHARGEMENT du FICHIER des CLIENTS ***\n";
+//			
+//			String mes;
+//
+//			mes = "\n*** CHARGEMENT du FICHIER des CLIENTS ***\n";
 			if(clientService == null){
+				
 				clientService = new ServiceClient();
-				mes = mes + "*** TABLE des CLIENTS VIDE ***" +
-						"CREATION par DEFAUT de la TABLE des CLIENTS ***\n";
+
+//				try {
+//					clientService.readData();
+//				} catch (IOException e) {
+//					// TODO Auto-generated catch block
+//					System.out.println("EXCEPTION Test MODULE GESTION Articles");
+//					e.printStackTrace();
+//				}
+				
+//				mes = mes + "*** TABLE des CLIENTS VIDE ***" +
+//						"CREATION par DEFAUT de la TABLE des CLIENTS ***\n";
 				clientService.creer(1,"SIMPSON","Homer","SPRINGFIELD");
 				clientService.creer(2,"SIMPSON","Marge","WINTERFIELD");
 				clientService.creer(3,"SIMPSON","Bart","SUMMERFIELD");
@@ -133,6 +144,14 @@ public class ClientsManagedBean implements Serializable{
         return searchResults;
     }	
 
+	public void supprimerClient(SelectEvent event)
+	{
+		selectionClient =  (Client)event.getObject();
+		System.out.println("supprimer le client : " + selectionClient.getNom());
+//		clientService.supprimer(selectionClient.getCode());
+		
+	}    
+    
 	public String miseAjourClient()
 	{
 		clientService.modifier(this.selectionClient.getCode());
